@@ -8,6 +8,10 @@
     "build": "pnpm run clean && pnpm run build:esm",
     "build:esm": "tsc --project tsconfig.build.json --outDir ./dist/esm --declaration --declarationMap --declarationDir ./dist/types"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/21Chani/solid-wagmi.git"
+  },
   "main": "./dist/esm/exports/index.js",
   "types": "./dist/types/exports/index.d.ts",
   "typings": "./dist/types/exports/index.d.ts",
