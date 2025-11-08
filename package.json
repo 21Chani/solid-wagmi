@@ -1,12 +1,13 @@
 {
   "name": "solid-wagmi",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Solid.js Hooks for Ethereum",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pnpm run clean && pnpm run build:esm",
-    "build:esm": "tsc --project tsconfig.build.json --outDir ./dist/esm --declaration --declarationMap --declarationDir ./dist/types"
+    "build:esm": "tsc --project tsconfig.build.json --outDir ./dist/esm --declaration --declarationMap --declarationDir ./dist/types",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo actions chains codegen connectors experimental query"
   },
   "repository": {
     "type": "git",
