@@ -1,4 +1,4 @@
-import { Config, hydrate, State } from "@wagmi/core";
+import { type Config, hydrate, type State } from "@wagmi/core";
 import {
   createComponent,
   createContext,
@@ -9,7 +9,7 @@ import {
 
 export type WagmiCtx = {
   config: Config;
-  initialState: State;
+  initialState?: State;
 };
 
 export const WagmiContext = createContext<WagmiCtx>();
