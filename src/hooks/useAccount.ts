@@ -1,9 +1,5 @@
 import { getAccount, watchAccount } from "@wagmi/core";
-import {
-  createSignal,
-  onCleanup,
-  onMount,
-} from "solid-js/types/server/reactive.js";
+import { createSignal, onCleanup, onMount } from "solid-js";
 import { useConfig } from "./useConfig.js";
 
 export function useAccount() {

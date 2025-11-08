@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/solid-query";
 import { disconnectMutationOptions } from "@wagmi/core/query";
-import { createMemo } from "solid-js/types/server/reactive.js";
+import { createMemo } from "solid-js";
 import { useConfig } from "./useConfig.js";
 import { useConnections } from "./useConnections.js";
 
