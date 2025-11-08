@@ -22,3 +22,21 @@ export const config = createConfig({
   },
 });
 ```
+
+# App root
+
+```ts
+import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
+import config from "./config";
+const queryClient = new QueryClient();
+
+function AppRoot() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <WagmiProvider config={config}>{props.children}</WagmiProvider>
+    </QueryClientProvider>
+  );
+}
+```
+
+This library does use wagmi's philosophy, to fully understand how you can implement it within your solid.js app, read the [wagmi docs](https://wagmi.sh/react/getting-started) first
