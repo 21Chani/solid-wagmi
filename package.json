@@ -1,6 +1,6 @@
 {
   "name": "solid-wagmi",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Solid.js Hooks for Ethereum",
   "type": "module",
   "scripts": {
@@ -25,6 +25,22 @@
     ".": {
       "types": "./dist/types/exports/index.d.ts",
       "default": "./dist/esm/exports/index.js"
+    },
+    "./actions": {
+      "types": "./dist/types/exports/actions.d.ts",
+      "default": "./dist/esm/exports/actions.js"
+    },
+    "./chains": {
+      "types": "./dist/types/exports/chains.d.ts",
+      "default": "./dist/esm/exports/chains.js"
+    },
+    "./connectors": {
+      "types": "./dist/types/exports/connectors.d.ts",
+      "default": "./dist/esm/exports/connectors.js"
+    },
+    "./query": {
+      "types": "./dist/types/exports/query.d.ts",
+      "default": "./dist/esm/exports/query.js"
     }
   },
   "peerDependencies": {
@@ -34,9 +50,15 @@
     "viem": "2.x"
   },
   "dependencies": {
+    "@wagmi/connectors": "^6.1.3",
     "@wagmi/core": "^2.22.1"
   },
-  "keywords": [],
+  "keywords": [
+    "solidjs",
+    "solid",
+    "wagmi",
+    "solid-wagmi"
+  ],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.12.1"
