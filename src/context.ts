@@ -36,6 +36,8 @@ export function WagmiProvider(props: {
 
   return createComponent(WagmiContext.Provider, {
     value: { config, initialState },
-    ...rest,
+    get children() {
+      return rest.children;
+    },
   });
 }
