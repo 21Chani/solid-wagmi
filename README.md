@@ -33,7 +33,9 @@ const queryClient = new QueryClient();
 function AppRoot() {
   return (
     <QueryClientProvider client={queryClient}>
-      <WagmiProvider config={config}>{props.children}</WagmiProvider>
+      <WagmiProvider config={config}>
+        {props.children}
+      </WagmiProvider>
     </QueryClientProvider>
   );
 }
