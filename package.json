@@ -4,7 +4,7 @@
   "description": "Solid.js Hooks for Ethereum",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "build": "pnpm run clean && pnpm run build:esm",
     "build:esm": "tsc --project tsconfig.build.json --outDir ./dist/esm --declaration --declarationMap --declarationDir ./dist/types",
     "clean": "rm -rf dist tsconfig.tsbuildinfo actions chains codegen connectors experimental query"
@@ -19,7 +19,16 @@
   "files": [
     "dist/**",
     "!dist/**/*.tsbuildinfo",
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "!src/**/*.test.ts",
+    "!src/**/*.test-d.ts",
+    "/actions",
+    "/chains",
+    "/codegen",
+    "/connectors",
+    "/experimental",
+    "/internal",
+    "/query"
   ],
   "exports": {
     ".": {
@@ -61,5 +70,13 @@
   ],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.12.1"
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "@solidjs/testing-library": "^0.8.10",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/user-event": "^14.6.1",
+    "jsdom": "^27.1.0",
+    "vite-plugin-solid": "^2.11.10",
+    "vitest": "^4.0.8"
+  }
 }

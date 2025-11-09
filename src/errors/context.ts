@@ -1,5 +1,7 @@
 export class WagmiProviderNotFoundError extends Error {
+  public static MESSAGE = "`useConfig` must be used withtin <WagmiProvider/>";
+
   constructor() {
-    super("`useConfig` must be used withtin <WagmiProvider/>");
+    super(WagmiProviderNotFoundError.MESSAGE);
   }
 }
