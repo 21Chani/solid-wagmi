@@ -2,34 +2,96 @@ import { useQuery } from "@tanstack/solid-query";
 import type { Config } from "@wagmi/core";
 import {
   readContractQueryOptions,
+  type ReadContractData,
   type ReadContractOptions,
+  type ReadContractQueryFnData,
+  type ReadContractQueryKey,
 } from "@wagmi/core/query";
 
-import { createMemo } from "solid-js";
+import type { UnionCompute } from "@wagmi/core/internal";
 import {
   type Abi,
   type ContractFunctionArgs,
   type ContractFunctionName,
+  type ReadContractErrorType,
 } from "viem";
+import type {
+  ConfigParameter,
+  QueryParameter,
+  UseQueryReturnType,
+} from "../types/index.js";
 import { useConfig } from "./useConfig.js";
 
+export type UseReadContractReturnType<
+  abi extends Abi | readonly unknown[] = Abi,
+  functionName extends ContractFunctionName<
+    abi,
+    "pure" | "view"
+  > = ContractFunctionName<abi, "pure" | "view">,
+  args extends ContractFunctionArgs<
+    abi,
+    "pure" | "view",
+    functionName
+  > = ContractFunctionArgs<abi, "pure" | "view", functionName>,
+  selectData = ReadContractData<abi, functionName, args>
+> = UseQueryReturnType<selectData, ReadContractErrorType>;
+
+export type UseReadContractParameters<
+  abi extends Abi | readonly unknown[] = Abi,
+  functionName extends ContractFunctionName<
+    abi,
+    "pure" | "view"
+  > = ContractFunctionName<abi, "pure" | "view">,
+  args extends ContractFunctionArgs<
+    abi,
+    "pure" | "view",
+    functionName
+  > = ContractFunctionArgs<abi, "pure" | "view", functionName>,
+  config extends Config = Config,
+  selectData = ReadContractData<abi, functionName, args>
+> = UnionCompute<
+  ReadContractOptions<abi, functionName, args, config> &
+    ConfigParameter<config> &
+    QueryParameter<
+      ReadContractQueryFnData<abi, functionName, args>,
+      ReadContractErrorType,
+      selectData,
+      ReadContractQueryKey<abi, functionName, args, config>
+    >
+>;
 export function useReadContract<
   abi extends Abi,
   functionName extends ContractFunctionName<abi, "pure" | "view">,
-  args extends ContractFunctionArgs<abi, "pure" | "view", functionName>
->(params: () => ReadContractOptions<abi, functionName, args, Config>) {
+  args extends ContractFunctionArgs<abi, "pure" | "view", functionName>,
+  selectData = ReadContractData<abi, functionName, args>
+>(
+  params: () => UseReadContractParameters<
+    abi,
+    functionName,
+    args,
+    Config,
+    selectData
+  >
+) {
   const { config } = useConfig();
 
-  const enabled = createMemo(() => {
-    const { address, functionName, abi } = params();
-    return Boolean(address && functionName && abi);
-  });
+  return useQuery(() => {
+    const { address, abi, functionName, query = {} } = params();
+    // @ts-ignore
+    const code = params().code as Hex | undefined;
 
-  return useQuery(() => ({
-    ...readContractQueryOptions<Config, abi, functionName, args>(
+    const options = readContractQueryOptions<Config, abi, functionName, args>(
       config,
       params()
-    ),
-    enabled: enabled(),
-  }));
+    );
+    const enabled = Boolean(
+      (address || code) && abi && functionName && (query?.enabled ?? true)
+    );
+
+    return {
+      ...query,
+      ...options,
+      enabled: enabled,
+    };
+  });
 }
