@@ -1,6 +1,6 @@
 {
   "name": "solid-wagmi",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Solid.js Hooks for Ethereum",
   "type": "module",
   "scripts": {
@@ -50,7 +50,8 @@
     "./query": {
       "types": "./dist/types/exports/query.d.ts",
       "default": "./dist/esm/exports/query.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "peerDependencies": {
     "@tanstack/solid-query": ">=5.0.0",
@@ -68,6 +69,7 @@
     "wagmi",
     "solid-wagmi"
   ],
+
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.12.1",
