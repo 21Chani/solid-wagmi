@@ -5,7 +5,7 @@ import { WagmiProviderNotFoundError } from "../errors/context.js";
 import { useConfig } from "./useConfig.js";
 
 test("mounts", async () => {
-  const { config } = renderHook(() => useConfig());
+  const config = renderHook(() => useConfig());
   expect(config).toBeDefined();
 });
 

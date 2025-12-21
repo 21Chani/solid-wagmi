@@ -7,7 +7,7 @@ import { useConfig } from "./useConfig.js";
 describe("useChainId", () => {
   it("default", async () => {
     const chain = renderHook(useChainId);
-    const { config } = renderHook(useConfig);
+    const config = renderHook(useConfig);
 
     expect(chain().id).toMatchInlineSnapshot("1");
 

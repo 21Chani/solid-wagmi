@@ -9,7 +9,7 @@ test("default", async () => {
       address: address.wagmiMintExample,
       abi: abi.wagmiMintExample,
       functionName: "balanceOf",
-      args: ["0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC" as const],
+      args: ["0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC"] as const,
       chainId: 1,
     }))
   );

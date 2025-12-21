@@ -8,7 +8,7 @@ import { useConfig } from "./useConfig.js";
 
 test("useAccount", async () => {
   const account = renderHook(useAccount);
-  const { config } = renderHook(useConfig);
+  const config = renderHook(useConfig);
 
   expect(account().address).undefined;
 

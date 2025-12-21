@@ -4,7 +4,7 @@ import { createEffect, onCleanup } from "solid-js";
 import { useConfig } from "./useConfig.js";
 
 export function useConnect() {
-  const { config } = useConfig();
+  const config = useConfig();
 
   const mutationOptions = connectMutationOptions(config);
   const { mutate, mutateAsync, ...result } = useMutation(() => ({

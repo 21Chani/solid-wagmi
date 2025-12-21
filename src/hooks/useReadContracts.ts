@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/solid-query";
-import type { Config, ReadContractsErrorType } from "@wagmi/core";
+import type {
+  Config,
+  ReadContractsErrorType,
+  ResolvedRegister,
+} from "@wagmi/core";
 import {
   readContractsQueryOptions,
-  type ReadContractData,
   type ReadContractsData,
   type ReadContractsOptions,
   type ReadContractsQueryFnData,
@@ -10,14 +13,8 @@ import {
 } from "@wagmi/core/query";
 
 import type { Compute } from "@wagmi/core/internal";
-import { createMemo } from "solid-js";
-import {
-  type Abi,
-  type ContractFunctionArgs,
-  type ContractFunctionName,
-  type ContractFunctionParameters,
-  type ReadContractErrorType,
-} from "viem";
+import { createMemo, type Accessor } from "solid-js";
+import { type ContractFunctionParameters } from "viem";
 import type {
   ConfigParameter,
   QueryParameter,
@@ -26,19 +23,12 @@ import type {
 import { useChainId } from "./useChainId.js";
 import { useConfig } from "./useConfig.js";
 
-export type UseReadContractReturnType<
-  abi extends Abi | readonly unknown[] = Abi,
-  functionName extends ContractFunctionName<
-    abi,
-    "pure" | "view"
-  > = ContractFunctionName<abi, "pure" | "view">,
-  args extends ContractFunctionArgs<
-    abi,
-    "pure" | "view",
-    functionName
-  > = ContractFunctionArgs<abi, "pure" | "view", functionName>,
-  selectData = ReadContractData<abi, functionName, args>
-> = UseQueryReturnType<selectData, ReadContractErrorType>;
+export type UseReadContractsReturnType<
+  contracts extends readonly unknown[] = readonly ContractFunctionParameters[],
+  allowFailure extends boolean = true,
+  selectData = ReadContractsData<contracts, allowFailure>
+> = UseQueryReturnType<selectData, ReadContractsErrorType>;
+
 export type UseReadContractsParameters<
   contracts extends readonly unknown[] = readonly ContractFunctionParameters[],
   allowFailure extends boolean = true,
@@ -58,17 +48,15 @@ export type UseReadContractsParameters<
 export function useReadContracts<
   const contracts extends readonly unknown[],
   allowFailure extends boolean = true,
+  config extends Config = ResolvedRegister["config"],
   selectData = ReadContractsData<contracts, allowFailure>
 >(
-  params: () => UseReadContractsParameters<
-    contracts,
-    allowFailure,
-    Config,
-    selectData
+  params: Accessor<
+    UseReadContractsParameters<contracts, allowFailure, config, selectData>
   >
 ) {
   const contracts = createMemo(() => params().contracts ?? []);
-  const { config } = useConfig();
+  const config = useConfig(params);
   const chainId = useChainId();
 
   const contractsChainId = createMemo(() => {
@@ -111,6 +99,6 @@ export function useReadContracts<
       ...query,
       ...options,
       enabled,
-    };
-  });
+    } as any;
+  }) as UseReadContractsReturnType<contracts, allowFailure, selectData>;
 }

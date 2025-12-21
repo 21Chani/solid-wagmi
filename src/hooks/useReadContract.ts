@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/solid-query";
-import type { Config } from "@wagmi/core";
+import type { Config, ResolvedRegister } from "@wagmi/core";
 import {
   readContractQueryOptions,
   type ReadContractData,
@@ -9,6 +9,7 @@ import {
 } from "@wagmi/core/query";
 
 import type { UnionCompute } from "@wagmi/core/internal";
+import { type Accessor } from "solid-js";
 import {
   type Abi,
   type ContractFunctionArgs,
@@ -59,28 +60,27 @@ export type UseReadContractParameters<
       ReadContractQueryKey<abi, functionName, args, config>
     >
 >;
+
 export function useReadContract<
-  abi extends Abi,
+  const abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, "pure" | "view">,
-  args extends ContractFunctionArgs<abi, "pure" | "view", functionName>,
+  const args extends ContractFunctionArgs<abi, "pure" | "view", functionName>,
+  config extends Config = ResolvedRegister["config"],
   selectData = ReadContractData<abi, functionName, args>
 >(
-  params: () => UseReadContractParameters<
-    abi,
-    functionName,
-    args,
-    Config,
-    selectData
+  params: Accessor<
+    UseReadContractParameters<abi, functionName, args, config, selectData>
   >
-) {
-  const { config } = useConfig();
+): UseReadContractReturnType<abi, functionName, args, selectData> {
+  const config = useConfig(params);
 
   return useQuery(() => {
     const { address, abi, functionName, query = {} } = params();
+    const { initialData, ...queryLeftovers } = query;
     // @ts-ignore
     const code = params().code as Hex | undefined;
 
-    const options = readContractQueryOptions<Config, abi, functionName, args>(
+    const options = readContractQueryOptions<config, abi, functionName, args>(
       config,
       params()
     );
@@ -89,9 +89,13 @@ export function useReadContract<
     );
 
     return {
-      ...query,
       ...options,
-      enabled: enabled,
+      ...queryLeftovers,
+
+      // Initial Data type gets messed up when wrapped in function
+      initiData:
+        initialData instanceof Function ? initialData()! : initialData!,
+      enabled,
     };
   });
 }

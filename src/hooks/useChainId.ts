@@ -5,7 +5,7 @@ import { extractChain } from "viem";
 import { useConfig } from "./useConfig.js";
 
 export function useChainId() {
-  const { config } = useConfig();
+  const config = useConfig();
   const [chainId, setChainID] = createSignal(getChainId(config));
 
   // Watch chain id

@@ -5,7 +5,7 @@ import { useConfig } from "./useConfig.js";
 import { useConnections } from "./useConnections.js";
 
 test("default", async () => {
-  const { config } = renderHook(useConfig);
+  const config = renderHook(useConfig);
   const connections = renderHook(() => useConnections());
 
   expect(connections()).toEqual([]);

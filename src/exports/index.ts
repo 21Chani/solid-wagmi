@@ -13,11 +13,15 @@ export { WagmiProviderNotFoundError } from "../errors/context.js";
 // Hooks
 // ///////////////////////////////////////////////////////////////
 export { useAccount } from "../hooks/useAccount.js";
+export { useBalance } from "../hooks/useBalance.js";
 export { useChainId } from "../hooks/useChainId.js";
 export { useConfig } from "../hooks/useConfig.js";
 export { useConnect } from "../hooks/useConnect.js";
 export { useConnections } from "../hooks/useConnections.js";
 export { useDisconnect } from "../hooks/useDisconnect.js";
+export { useReadContract } from "../hooks/useReadContract.js";
+export { useReadContracts } from "../hooks/useReadContracts.js";
+export { useWriteContract } from "../hooks/useWriteContract.js";
 
 ////////////////////////////////////////////////////////////////////////////////
 // @wagmi/core

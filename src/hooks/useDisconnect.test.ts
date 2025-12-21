@@ -14,7 +14,7 @@ beforeEach(async () => {
 
 test("useDisconnect", async () => {
   const account = renderHook(useAccount);
-  const { config } = renderHook(useConfig);
+  const config = renderHook(useConfig);
   const disconnect = renderHook(useDisconnect);
 
   expect(account().address).toBeDefined();

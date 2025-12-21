@@ -76,6 +76,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/user-event": "^14.6.1",
     "jsdom": "^27.1.0",
+    "prool": "^0.0.25",
     "vite-plugin-solid": "^2.11.10",
     "vitest": "^4.0.8"
   }

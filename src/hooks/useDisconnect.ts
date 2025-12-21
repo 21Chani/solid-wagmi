@@ -5,7 +5,7 @@ import { useConfig } from "./useConfig.js";
 import { useConnections } from "./useConnections.js";
 
 export function useDisconnect() {
-  const { config } = useConfig();
+  const config = useConfig();
 
   const connections = useConnections();
   const mutationOptions = disconnectMutationOptions(config);

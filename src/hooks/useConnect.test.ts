@@ -6,7 +6,7 @@ import { useConnect } from "./useConnect.js";
 
 test("useAccount", async () => {
   const account = renderHook(useAccount);
-  const { config } = renderHook(useConfig);
+  const config = renderHook(useConfig);
   const connect = renderHook(useConnect);
 
   expect(account().address).not.toBeDefined();

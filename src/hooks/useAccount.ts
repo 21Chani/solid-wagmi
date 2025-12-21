@@ -3,7 +3,7 @@ import { createSignal, onCleanup, onMount } from "solid-js";
 import { useConfig } from "./useConfig.js";
 
 export function useAccount() {
-  const { config } = useConfig();
+  const config = useConfig();
   const [account, setAccount] = createSignal(getAccount(config));
 
   // Watch account

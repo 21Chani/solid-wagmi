@@ -1,5 +1,9 @@
 import { useQuery } from "@tanstack/solid-query";
-import type { Config, GetBalanceErrorType } from "@wagmi/core";
+import type {
+  Config,
+  GetBalanceErrorType,
+  ResolvedRegister,
+} from "@wagmi/core";
 import type { Compute } from "@wagmi/core/internal";
 import {
   getBalanceQueryOptions,
@@ -13,7 +17,7 @@ import { useChainId } from "./useChainId.js";
 import { useConfig } from "./useConfig.js";
 
 export type UseBalanceParameters<
-  config extends Config = Config,
+  config extends Config = ResolvedRegister["config"],
   selectData = GetBalanceData
 > = Compute<
   GetBalanceOptions<config> &
@@ -26,7 +30,7 @@ export type UseBalanceParameters<
     >
 >;
 export function useBalance(params: () => UseBalanceParameters) {
-  const { config } = useConfig();
+  const config = useConfig(params);
   const chain = useChainId();
 
   const options = () =>

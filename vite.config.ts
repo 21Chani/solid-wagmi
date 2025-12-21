@@ -6,4 +6,8 @@ export default defineConfig({
   resolve: {
     conditions: ["development", "browser"],
   },
+
+  test: {
+    globalSetup: ["./test/globalSetup.ts"],
+  },
 });
