@@ -1,18 +1,20 @@
-import { type Config, hydrate, type State } from "@wagmi/core";
+import {
+  hydrate,
+  type Config,
+  type ResolvedRegister,
+  type State,
+} from "@wagmi/core";
 import {
   createComponent,
   createContext,
-  type JSX,
   onMount,
   splitProps,
+  type JSX,
 } from "solid-js";
 
-export type WagmiCtx = {
-  config: Config;
-  initialState?: State;
-};
-
-export const WagmiContext = createContext<WagmiCtx>();
+export const WagmiContext = createContext<
+  ResolvedRegister["config"] | undefined
+>(undefined);
 
 export function WagmiProvider(props: {
   config: Config;
@@ -35,7 +37,7 @@ export function WagmiProvider(props: {
   });
 
   return createComponent(WagmiContext.Provider, {
-    value: { config, initialState },
+    value: config,
     get children() {
       return rest.children;
     },
