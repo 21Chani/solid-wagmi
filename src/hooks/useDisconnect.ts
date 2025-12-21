@@ -8,7 +8,7 @@ export function useDisconnect() {
   const config = useConfig();
 
   const connections = useConnections();
-  const mutationOptions = disconnectMutationOptions(config);
+  const mutationOptions = disconnectMutationOptions(config());
   const { mutate, mutateAsync, ...result } = useMutation(() => ({
     ...mutationOptions,
   }));

@@ -91,7 +91,7 @@ export function useReadContracts<
     const code = params().code as Hex | undefined;
 
     const options = readContractsQueryOptions<Config, contracts, allowFailure>(
-      config,
+      config(),
       { ...params(), chainId: contractsChainId() ?? chainId().id }
     );
 

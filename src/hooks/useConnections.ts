@@ -4,11 +4,11 @@ import { useConfig } from "./useConfig.js";
 
 export function useConnections() {
   const config = useConfig();
-  const [connections, setConnections] = createSignal(getConnections(config));
+  const [connections, setConnections] = createSignal(getConnections(config()));
 
   let cleanup: VoidFunction | undefined;
   onMount(() => {
-    cleanup = watchConnections(config, { onChange: setConnections });
+    cleanup = watchConnections(config(), { onChange: setConnections });
   });
   onCleanup(() => cleanup?.());
 

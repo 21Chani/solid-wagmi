@@ -34,7 +34,7 @@ export function useBalance(params: () => UseBalanceParameters) {
   const chain = useChainId();
 
   const options = () =>
-    getBalanceQueryOptions(config, { chainId: chain().id, ...params() });
+    getBalanceQueryOptions(config(), { chainId: chain().id, ...params() });
   const enabled = () =>
     Boolean(params().address && (params().query?.enabled ?? true));
 

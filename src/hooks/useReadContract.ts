@@ -81,7 +81,7 @@ export function useReadContract<
     const code = params().code as Hex | undefined;
 
     const options = readContractQueryOptions<config, abi, functionName, args>(
-      config,
+      config(),
       params()
     );
     const enabled = Boolean(

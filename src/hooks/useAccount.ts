@@ -4,12 +4,12 @@ import { useConfig } from "./useConfig.js";
 
 export function useAccount() {
   const config = useConfig();
-  const [account, setAccount] = createSignal(getAccount(config));
+  const [account, setAccount] = createSignal(getAccount(config()));
 
   // Watch account
   let cleanup: VoidFunction;
   onMount(() => {
-    cleanup = watchAccount(config, { onChange: setAccount });
+    cleanup = watchAccount(config(), { onChange: setAccount });
   });
   onCleanup(() => cleanup?.());
 

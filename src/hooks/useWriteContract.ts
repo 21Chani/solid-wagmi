@@ -1,5 +1,9 @@
 import { useMutation } from "@tanstack/solid-query";
-import type { Config, WriteContractErrorType } from "@wagmi/core";
+import type {
+  Config,
+  ResolvedRegister,
+  WriteContractErrorType,
+} from "@wagmi/core";
 import {
   writeContractMutationOptions,
   type WriteContractData,
@@ -7,7 +11,7 @@ import {
   type WriteContractMutateAsync,
   type WriteContractVariables,
 } from "@wagmi/core/query";
-
+import type { Accessor } from "solid-js";
 import type { Abi } from "viem";
 import type {
   ConfigParameter,
@@ -56,18 +60,22 @@ export type UseWriteContractReturnType<
 };
 
 export function useWriteContract<
-  config extends Config = Config,
+  config extends Config = ResolvedRegister["config"],
   context = unknown
 >(
-  params?: () => UseWriteContractParameters<config, context>
+  params: Accessor<UseWriteContractParameters<config, context>> = () => ({})
 ): UseWriteContractReturnType<config, context> {
   const config = useConfig();
 
-  const mutationOptions = writeContractMutationOptions(config);
-  const { mutate, mutateAsync, ...result } = useMutation(() => ({
-    ...(params?.().mutation ?? {}),
-    ...mutationOptions,
-  }));
+  const mutationOptions = writeContractMutationOptions(config());
+  const { mutate, mutateAsync, ...result } = useMutation(() => {
+    const mutation = params?.().mutation;
+
+    return {
+      ...(mutation ?? {}),
+      ...mutationOptions,
+    };
+  });
 
   type Return = UseWriteContractReturnType<config, context>;
   return {

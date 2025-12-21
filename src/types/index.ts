@@ -1,9 +1,9 @@
 import type {
   DefaultError,
   QueryKey,
+  SolidMutationOptions,
   SolidQueryOptions,
   UseInfiniteQueryOptions,
-  UseMutationOptions,
   UseMutationResult,
   UseQueryResult,
 } from "@tanstack/solid-query";
@@ -67,7 +67,7 @@ export type UseMutationParameters<
   context = unknown
 > = Compute<
   Omit<
-    ReturnType<UseMutationOptions<data, error, Compute<variables>, context>>,
+    SolidMutationOptions<data, error, Compute<variables>, context>,
     "mutationFn" | "mutationKey" | "throwOnError"
   >
 >;
