@@ -1,6 +1,6 @@
 {
   "name": "solid-wagmi",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Solid.js Hooks for Ethereum",
   "type": "module",
   "scripts": {
@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "@wagmi/connectors": "^6.1.3",
-    "@wagmi/core": "^2.22.1"
+    "@wagmi/core": "^3.0.0"
   },
   "keywords": [
     "solidjs",
@@ -69,7 +69,6 @@
     "wagmi",
     "solid-wagmi"
   ],
-
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.12.1",
