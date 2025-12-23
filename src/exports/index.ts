@@ -17,6 +17,7 @@ export { useBalance } from "../hooks/useBalance.js";
 export { useChainId } from "../hooks/useChainId.js";
 export { useConfig } from "../hooks/useConfig.js";
 export { useConnect } from "../hooks/useConnect.js";
+export { useConnection } from "../hooks/useConnection.js";
 export { useConnections } from "../hooks/useConnections.js";
 export { useDisconnect } from "../hooks/useDisconnect.js";
 export { useReadContract } from "../hooks/useReadContract.js";
