@@ -34,6 +34,8 @@ export {
   ConnectorChainMismatchError,
   ConnectorNotFoundError,
   ConnectorUnavailableReconnectingError,
+  ProviderNotFoundError,
+  SwitchChainNotSupportedError,
   // Utilities
   cookieStorage,
   cookieToInitialState,
@@ -49,11 +51,8 @@ export {
   injected,
   mock,
   noopStorage,
-  normalizeChainId,
   parseCookie,
-  ProviderNotFoundError,
   serialize,
-  SwitchChainNotSupportedError,
   unstable_connector,
   webSocket,
   // Errors
