@@ -7,11 +7,9 @@ import type {
 import {
   writeContractMutationOptions,
   type WriteContractData,
-  type WriteContractMutate,
-  type WriteContractMutateAsync,
-  type WriteContractVariables,
+  type WriteContractVariables
 } from "@wagmi/core/query";
-import { mergeProps, type Accessor } from "solid-js";
+import { type Accessor } from "solid-js";
 import type { Abi } from "viem";
 import type {
   ConfigParameter,

@@ -8,9 +8,8 @@ export function useDisconnect() {
   const config = useConfig();
 
   const connections = useConnections();
-  const mutationOptions = disconnectMutationOptions(config());
   const mutation = useMutation(() => ({
-    ...mutationOptions,
+    ...disconnectMutationOptions(config()),
   }));
 
   const connectors = createMemo(() => connections().map((c) => c.connector));
