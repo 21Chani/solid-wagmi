@@ -1,6 +1,6 @@
 {
   "name": "solid-wagmi",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Solid.js Hooks for Ethereum",
   "type": "module",
   "scripts": {

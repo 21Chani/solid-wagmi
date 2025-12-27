@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/solid-query";
 import { disconnectMutationOptions } from "@wagmi/core/query";
-import { createMemo } from "solid-js";
+import { createMemo, mergeProps } from "solid-js";
 import { useConfig } from "./useConfig.js";
 import { useConnections } from "./useConnections.js";
 
@@ -9,16 +9,13 @@ export function useDisconnect() {
 
   const connections = useConnections();
   const mutationOptions = disconnectMutationOptions(config());
-  const { mutate, mutateAsync, ...result } = useMutation(() => ({
+  const mutation = useMutation(() => ({
     ...mutationOptions,
   }));
 
   const connectors = createMemo(() => connections().map((c) => c.connector));
 
-  return {
-    ...result,
+  return mergeProps(mutation, {
     connectors,
-    disconnect: mutate,
-    disconnectAsync: mutateAsync,
-  };
+  });
 }

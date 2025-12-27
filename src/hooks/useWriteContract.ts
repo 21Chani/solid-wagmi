@@ -11,7 +11,7 @@ import {
   type WriteContractMutateAsync,
   type WriteContractVariables,
 } from "@wagmi/core/query";
-import type { Accessor } from "solid-js";
+import { mergeProps, type Accessor } from "solid-js";
 import type { Abi } from "viem";
 import type {
   ConfigParameter,
@@ -54,10 +54,7 @@ export type UseWriteContractReturnType<
     config["chains"][number]["id"]
   >,
   context
-> & {
-  writeContract: WriteContractMutate<config, context>;
-  writeContractAsync: WriteContractMutateAsync<config, context>;
-};
+>  
 
 export function useWriteContract<
   config extends Config = ResolvedRegister["config"],
@@ -68,7 +65,7 @@ export function useWriteContract<
   const config = useConfig();
 
   const mutationOptions = writeContractMutationOptions(config());
-  const { mutate, mutateAsync, ...result } = useMutation(() => {
+  const mut= useMutation(() => {
     const mutation = params?.().mutation;
 
     return {
@@ -77,10 +74,5 @@ export function useWriteContract<
     };
   });
 
-  type Return = UseWriteContractReturnType<config, context>;
-  return {
-    ...(result as Return),
-    writeContract: mutate as Return["writeContract"],
-    writeContractAsync: mutateAsync as Return["writeContractAsync"],
-  };
+  return mut as UseWriteContractReturnType<config, context>;
 }
